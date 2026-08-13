@@ -18,9 +18,13 @@ RUN composer install --no-dev --optimize-autoloader \
     && chown -R www-data:www-data storage bootstrap/cache public/storage \
     && cp -a . /opt/app-src
 
+RUN chown -R www-data:www-data /app
+
 COPY docker/entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY docker/fpm-healthcheck /usr/local/bin/fpm-healthcheck
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/fpm-healthcheck
+
+USER www-data
 
 EXPOSE 9000
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

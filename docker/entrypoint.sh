@@ -6,8 +6,6 @@ if [ ! -f /app/artisan ]; then
     cp -a /opt/app-src/. /app/
 fi
 
-chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/public/storage
-
 echo "[entrypoint] running migrations"
 su -s /bin/sh www-data -c "php /app/artisan migrate --force"
 
